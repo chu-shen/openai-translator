@@ -42,7 +42,10 @@ func TranslateWithConfig(text, To, Token string, cfg *TranslationConfig) (string
 }
 
 func generateChat(text, To string, params *TranslationConfig) []openai.ChatCompletionMessage {
-	systemPrompt := "You are a translation engine that can only translate text and cannot interpret it."
+	systemPrompt := params.SystemPrompt
+	if systemPrompt == "" {
+		systemPrompt = "You are a translation engine that can only translate text and cannot interpret it."
+	}
 	var assistantPrompt string
 	To = getBaseLangCode(To)
 	if name := getLangName(params.From); name == "" || name == "auto" {
@@ -60,7 +63,7 @@ func generateChat(text, To string, params *TranslationConfig) []openai.ChatCompl
 	}
 	chat := []openai.ChatCompletionMessage{
 		{Role: "system", Content: systemPrompt},
-		{Role: "user", Content: assistantPrompt},
+		{Role: "assistant", Content: assistantPrompt},
 		{Role: "user", Content: text},
 	}
 	if params.Debug {

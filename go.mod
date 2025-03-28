@@ -1,4 +1,4 @@
-module github.com/zijiren233/openai-translator
+module github.com/chu-shen/openai-translator
 
 go 1.20
 

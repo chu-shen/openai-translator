@@ -33,6 +33,7 @@ type TranslationConfig struct {
 	PresencePenalty     float32 // 介于-2.0和2.0之间的数字。正值会根据新标记到目前为止是否出现在文本中来惩罚它们，从而增加模型谈论新主题的可能性。
 	FrequencyPenalty    float32 // 介于-2.0和2.0之间的数字。正值会根据新符号在文本中的现有频率来惩罚它们，从而降低模型逐字重复同一行的可能性。
 	From, SelectedWords string
+	SystemPrompt        string
 }
 
 type Option func(*TranslationConfig)
@@ -94,6 +95,12 @@ func WithFrequencyPenalty(FrequencyPenalty float32) Option {
 func WithModel(Model string) Option {
 	return func(tc *TranslationConfig) {
 		tc.Model = Model
+	}
+}
+
+func WithSystemPrompt(SystemPrompt string) Option {
+	return func(tc *TranslationConfig) {
+		tc.SystemPrompt = SystemPrompt
 	}
 }
 
