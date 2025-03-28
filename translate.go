@@ -63,8 +63,8 @@ func generateChat(text, To string, params *TranslationConfig) []openai.ChatCompl
 	}
 	chat := []openai.ChatCompletionMessage{
 		{Role: "system", Content: systemPrompt},
-		{Role: "assistant", Content: assistantPrompt},
 		{Role: "user", Content: text},
+		{Role: "assistant", Content: assistantPrompt},
 	}
 	if params.Debug {
 		log.Println(chat)
